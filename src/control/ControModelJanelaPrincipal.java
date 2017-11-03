@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import model.ModelJanelaPrincipal;
 import visao.JanelaPrincipal;
 
@@ -32,6 +34,7 @@ public class ControModelJanelaPrincipal implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if ("geraautomato".equals(e.getActionCommand())) {
+
             try {
                 modeljanelaprincipal = janelaprincipal.modelojanelaprincipal();
             } catch (Excecao ex) {
@@ -43,11 +46,37 @@ public class ControModelJanelaPrincipal implements ActionListener {
             jtfsiboloIncial = modeljanelaprincipal.getJtfsiboloIncial();
             jtfProducao = modeljanelaprincipal.getJtfProducao();
 
-            System.out.println("Não Terminais :" + jtfnaoterminais + "\n"
-                    + "Terminais :" + jtfterminais + "\n"
-                    + "Simbolo Inicial :" + jtfsiboloIncial + "\n"
-                    + "Producao :" + jtfProducao);
+            String producoes = "([A-Z])|"
+                    + "([A-Z]=)|"
+                    + "([A-Z]=[a-z][A-Z]?)|"
+                    + "([A-Z]=([a-z][A-Z]?[|])*)|"
+                    + "(([A-Z]=([a-z][A-Z]?[|])*([&]|([a-z][A-Z]?)))\n?)*";
 
+            String Terminais = "([a-z])|"
+                    + "([a-z],)|"
+                    + "([a-z],[a-z]*)|"
+                    + "([a-z],([a-z]?)*)|"
+                    + "([a-z],([a-z],[a-z]?)*)";
+
+            String NaoTerminais = "([A-Z])|"
+                    + "([A-Z],)|"
+                    + "([A-Z],[A-Z]*)|"
+                    + "([A-Z],([A-Z]?)*)|"
+                    + "([A-Z],([A-Z],[A-Z]?)*)";
+            String SimboloInicial = "([A-Z])";
+
+            if (jtfnaoterminais.matches(NaoTerminais) && jtfterminais.matches(Terminais) && jtfProducao.matches(producoes) && jtfsiboloIncial.matches(SimboloInicial)) {
+
+                char a[][] = new char[10][10];
+                for (int i = 0; i < 10; i++) {
+                    for (int j = 0; j < 10; j++) {
+                        a[0][0] = NaoTerminais.charAt(0);
+                        System.out.print(a[0][0]);
+                    }
+                    System.out.println("");
+                }
+
+            }
         }
 
     }
