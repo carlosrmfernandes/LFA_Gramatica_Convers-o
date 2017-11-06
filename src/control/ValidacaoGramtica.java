@@ -43,7 +43,21 @@ public class ValidacaoGramtica {
 
             }
         }
-        
-        
+        char ch = inicial.charAt(0);
+        for (int iii = 0; iii < naoterminal.length(); iii++) {
+            if (naoterminal.charAt(iii) == ch) {
+                Validar_Preposicao();
+                return;
+            }
+            JOptionPane.showMessageDialog(null, "O simbolo Inicail deve ser uma"
+                    + "\nletra dos Não Terminais");
+            return;
+        }
+
+    }
+
+    public void Validar_Preposicao() {
+        System.out.println("tudo Ok");
+
     }
 }
