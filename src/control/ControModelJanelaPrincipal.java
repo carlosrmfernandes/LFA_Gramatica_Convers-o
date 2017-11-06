@@ -66,16 +66,14 @@ public class ControModelJanelaPrincipal implements ActionListener {
             String SimboloInicial = "([A-Z])";
 
             if (jtfnaoterminais.matches(NaoTerminais) && jtfterminais.matches(Terminais) && jtfProducao.matches(producoes) && jtfsiboloIncial.matches(SimboloInicial)) {
+                String NT = jtfnaoterminais.replace(",", "");
+                String TN = jtfterminais.replace(",", "");
+                String SI = jtfsiboloIncial;
+                ValidacaoGramtica vd = new ValidacaoGramtica();
+                vd.validacao(NT, TN, SI);
 
-                char a[][] = new char[10][10];
-                for (int i = 0; i < 10; i++) {
-                    for (int j = 0; j < 10; j++) {
-                        a[0][0] = NaoTerminais.charAt(0);
-                        System.out.print(a[0][0]);
-                    }
-                    System.out.println("");
-                }
-
+            } else {
+                System.out.println("erro");
             }
         }
 
