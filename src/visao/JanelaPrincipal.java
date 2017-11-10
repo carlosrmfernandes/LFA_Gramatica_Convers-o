@@ -24,7 +24,16 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     public ModelJanelaPrincipal modelojanelaprincipal() throws Excecao {
 
         if ("".equals(jtfnaoterminais.getText())) {
-            throw new Excecao("");
+            throw new Excecao("Digite os não terminais");
+        }
+        if ("".equals(jtfterminais.getText())) {
+            throw new Excecao("Digite os terminais");
+        }
+        if ("".equals(jtfsiboloIncial.getText())) {
+            throw new Excecao("Digite o Simbolo inicial");
+        }
+        if ("".equals(jtfProducao.getText())) {
+            throw new Excecao("Digite as produções");
         }
 
         ModelJanelaPrincipal modeljanelaprinc = new ModelJanelaPrincipal();

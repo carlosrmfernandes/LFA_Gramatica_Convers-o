@@ -45,6 +45,7 @@ public class ControModelJanelaPrincipal implements ActionListener {
             jtfterminais = modeljanelaprincipal.getJtfterminais();
             jtfsiboloIncial = modeljanelaprincipal.getJtfsiboloIncial();
             jtfProducao = modeljanelaprincipal.getJtfProducao();
+            
 
             String producoes = "([A-Z])|"
                     + "([A-Z]=)|"
@@ -69,11 +70,22 @@ public class ControModelJanelaPrincipal implements ActionListener {
                 String NT = jtfnaoterminais.replace(",", "");
                 String TN = jtfterminais.replace(",", "");
                 String SI = jtfsiboloIncial;
+                String PD = jtfProducao.replace("=", "");
+                String PD_aux = PD.replace("|", "");
+
                 ValidacaoGramtica vd = new ValidacaoGramtica();
-                vd.validacao(NT, TN, SI);
+                vd.validacao(NT, TN, SI, PD_aux);
 
             } else {
-                System.out.println("erro");
+                JOptionPane.showMessageDialog(null, "Erro de Sinatxe"
+                        + "\nExemplo : "
+                        + "\nNão Terminais : A,B,C"
+                        + "\n Terminais : a,b,c,d"
+                        + "\n Produções :"
+                        + "\n S = aA"
+                        + "\n A = a|bB"
+                        + "\n B = b|d"
+                        + "\n C = bB|&");
             }
         }
 

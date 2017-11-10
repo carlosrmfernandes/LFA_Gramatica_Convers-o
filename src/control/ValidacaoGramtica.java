@@ -5,6 +5,12 @@
  */
 package control;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,7 +19,17 @@ import javax.swing.JOptionPane;
  */
 public class ValidacaoGramtica {
 
-    void validacao(String naoterminal, String terminal, String inicial) {
+    String prod = null;
+    String naotermi = null;
+    String Termi = null;
+    String in = null;
+
+    void validacao(String naoterminal, String terminal, String inicial, String proucoes) {
+        prod = proucoes;
+        Termi = terminal;
+        naotermi = naoterminal;
+        in = inicial;
+
         int i = 0, j, cont = 0;
         char c, d;
         for (j = 0; j < naoterminal.length(); j++) {
@@ -57,7 +73,15 @@ public class ValidacaoGramtica {
     }
 
     public void Validar_Preposicao() {
-        System.out.println("tudo Ok");
+        String i = in.toLowerCase();
+        String pd = prod;
+        String con = Termi.concat(naotermi).toLowerCase();
+        pd = pd.replace("\n", "").toLowerCase();
+        
+        
+       
+       
 
     }
+
 }
