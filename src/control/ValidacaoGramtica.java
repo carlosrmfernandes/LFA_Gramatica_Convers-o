@@ -78,8 +78,8 @@ public class ValidacaoGramtica {
         String i = in.toLowerCase();
         String pd = prod;
         String vasio = "&";
-        String con = Termi.concat(naotermi).concat(vasio).toLowerCase();
-        pd = pd.replace("\n", "").toLowerCase();
+        String con = Termi.concat(naotermi).concat(vasio);
+        pd = pd.replace("\n", "");
 
         HashSet hs = new HashSet();
         HashSet hss = new HashSet();
