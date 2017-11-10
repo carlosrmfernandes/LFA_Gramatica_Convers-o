@@ -23,12 +23,14 @@ public class ValidacaoGramtica {
     String naotermi = null;
     String Termi = null;
     String in = null;
+    String p = null;
 
-    void validacao(String naoterminal, String terminal, String inicial, String proucoes) {
+    void validacao(String naoterminal, String terminal, String inicial, String proucoes, String jtfProducao) {
         prod = proucoes;
         Termi = terminal;
         naotermi = naoterminal;
         in = inicial;
+        p = jtfProducao;
 
         int i = 0, j, cont = 0;
         char c, d;
@@ -65,7 +67,7 @@ public class ValidacaoGramtica {
                 Validar_Preposicao();
                 return;
             }
-            JOptionPane.showMessageDialog(null, "O simbolo Inicail deve ser uma"
+            JOptionPane.showMessageDialog(null, "O simbolo Inicail deve ser A ser a Primeira"
                     + "\nletra dos Não Terminais");
             return;
         }
@@ -75,12 +77,29 @@ public class ValidacaoGramtica {
     public void Validar_Preposicao() {
         String i = in.toLowerCase();
         String pd = prod;
-        String con = Termi.concat(naotermi).toLowerCase();
+        String vasio = "&";
+        String con = Termi.concat(naotermi).concat(vasio).toLowerCase();
         pd = pd.replace("\n", "").toLowerCase();
-        
-        
-       
-       
+
+        HashSet hs = new HashSet();
+        HashSet hss = new HashSet();
+
+        for (int j = 0; j < con.length(); j++) {
+            hs.add(con.charAt(j));
+        }
+        for (int j = 0; j < pd.length(); j++) {
+            hss.add(pd.charAt(j));
+        }
+
+        if (hs.containsAll(hss)) {
+            GramaticaMatrix gm = new GramaticaMatrix();
+            gm.gamaticamatri(prod, naotermi, Termi, in,p);
+        } else {
+            JOptionPane.showMessageDialog(null, "Erro na entrada das Produçoes voce digitou "
+                    + "\nUm caracter que nao existe nos não terminais"
+                    + "\nOu nos terminais, reve a entrada");
+            return;
+        }
 
     }
 

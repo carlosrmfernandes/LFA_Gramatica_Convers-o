@@ -6,6 +6,7 @@
 package control;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -14,10 +15,19 @@ import java.util.List;
  */
 public class GramaticaMatrix {
 
-    ValidacaoGramtica vald = new ValidacaoGramtica();
+    void gamaticamatri(String prod, String naotermi, String Termi, String in, String p) {
+        HashSet hs = new HashSet();
+      
 
-    public List<String> DividirLinha() {
-        return Arrays.asList(vald.prod.split("\n"));
+        for (int j = 0; j < prod.length(); j++) {
+            hs.add(prod.charAt(j));
+        }
+       
+        System.out.println(hs);
+       
+
+        System.out.println(p);
+        System.out.println(prod);
     }
 
 }
