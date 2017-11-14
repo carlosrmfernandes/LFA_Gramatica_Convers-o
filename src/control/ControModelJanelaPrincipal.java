@@ -45,10 +45,8 @@ public class ControModelJanelaPrincipal implements ActionListener {
             jtfterminais = modeljanelaprincipal.getJtfterminais();
             jtfsiboloIncial = modeljanelaprincipal.getJtfsiboloIncial();
             jtfProducao = modeljanelaprincipal.getJtfProducao();
-            
 
-            String producoes = "([A-Z])|"
-                    + "([A-Z]=)|"
+            String producoes = "([A-Z]=?)|"
                     + "([A-Z]=[a-z][A-Z]?)|"
                     + "([A-Z]=([a-z][A-Z]?[|])*)|"
                     + "(([A-Z]=([a-z][A-Z]?[|])*([&]|([a-z][A-Z]?)))\n?)*";
@@ -74,7 +72,7 @@ public class ControModelJanelaPrincipal implements ActionListener {
                 String PD_aux = PD.replace("|", "");
 
                 ValidacaoGramtica vd = new ValidacaoGramtica();
-                vd.validacao(NT, TN, SI, PD_aux,jtfProducao);
+                vd.validacao(NT, TN, SI, PD_aux, jtfProducao);
 
             } else {
                 JOptionPane.showMessageDialog(null, "Erro de Sinatxe"
