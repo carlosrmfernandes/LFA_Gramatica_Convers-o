@@ -8,6 +8,8 @@ package control;
 import exception.Excecao;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -85,6 +87,13 @@ public class ControModelJanelaPrincipal implements ActionListener {
                         + "\n B = b|d"
                         + "\n C = bB|&");
             }
+            GramaticaMatrix x = new GramaticaMatrix();
+            List<String> terminais = new ArrayList<>();
+            terminais.addAll(x.Terminais());
+            terminais.add(0, "");
+
+            DefaultTableModel mod = new DefaultTableModel(x.MatrixApresentacao(), terminais.toArray(new String[terminais.size()]));
+            janelaprincipal.jTable1.setModel(mod);
         }
 
     }

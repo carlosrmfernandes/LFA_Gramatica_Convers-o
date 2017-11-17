@@ -10,6 +10,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import javax.swing.table.DefaultTableModel;
+import visao.JanelaPrincipal;
 
 /**
  *
@@ -19,10 +22,30 @@ public class GramaticaMatrix {
 
     HashSet naoterminais = new HashSet();
     HashSet terminais = new HashSet();
-    String pp = null;
+    String pp = "A=aA|aC|bB";
     String inn = null;
+    private JanelaPrincipal janelaprincipal;
+
+   
+    public Set<String> Terminais() {
+        return LinhaProducao()
+                .stream()
+                .map(s -> Producoes(s))
+                .flatMap(List::stream)
+                .filter(s -> !s.equalsIgnoreCase("&"))
+                .map(s -> s.substring(0, 1))
+                .collect(Collectors.toSet());
+    }
+
+    public Set<String> NaoTerminais() {
+        return LinhaProducao()//recebe as linhas
+                .stream()//pega uma linha por vez
+                .map(linha -> linha.substring(0, 1))//pega o primeiro carácter de cada linha
+                .collect(Collectors.toSet());//passa cada carácter para um set
+    }
 
     void gamaticamatri(String prod, String naotermi, String Termi, String in, String p) {
+
         pp = p;
         inn = in;
         for (int j = 0; j < prod.length(); j++) {
@@ -36,85 +59,52 @@ public class GramaticaMatrix {
             }
 
         }
-        System.out.println(p);
-        System.out.println(in);
-        System.out.print(naoterminais);
-        System.out.println(terminais);
-        //System.out.println(getTabelaMatriz());
 
+//        List<String> terminais = new ArrayList<>(matrix.getTerminais());
+//        List<String> nTerminais = new ArrayList<>(matrix.getNaoTerminais());
+//        List<String> linhas = matrix.getLinhas();
+//        DefaultTableModel mod = new DefaultTableModel(MatrixApresentacao(), terminais.toArray(new String[terminais.size()]));
+//        List<String> terminais = new ArrayList<>();
+//        terminais.addAll(getTerminais());
+//
+//        DefaultTableModel mod = new DefaultTableModel(MatrixApresentacao(), terminais.toArray(new String[terminais.size()]));
+//        modeljanelaprincipal = janelaprincipal.modelojanelaprincipal();
+//        jp.jtfsiboloIncial.setText("hsdhgjdsgh");
+//        jp.jTable1.setModel(mod);
+
+    MatrixApresentacao();
     }
 
-//    public List<String> getLinhas() {
-//        return Arrays.asList(this.pp.split("\n"));
-//    }
-//
-//    private String verificaEstado(String nTerminal) {
-//        String estado = "";
-//
-//        if (this.inn.equals(inn)) {
-//            estado += "->";
-//        }
-//
-//        if (getFinais().contains(nTerminal)) {
-//            estado += "*";
-//        }
-//
-//        return estado + nTerminal;
-//    }
-//
-//    public List<String> getProducoes(String linha) {
-//        //System.out.println(linha);
-//        return Arrays.asList(linha.substring(2).split("[|]"));
-//    }
-//
-//    public Set<String> getFinais() {
-//        HashSet<String> pegaFinal = new HashSet<>();
-//
-//        for (String linha : this.getLinhas()) {
-//            //Converte a linha em char
-//            List<String> producoes = this.getProducoes(linha);
-//            //for criado para fazer toda a operacao com a linha
-//            for (String producao : producoes) {
-//                //Checa se a letra na posicao j e minuscula E checa se na posicao j+1 e maiuscula
-//                if (producao.length() < 2) {
-//                    if (linha.contains(producao)) {
-//                        for (String verificaFinal : producoes) {
-//                            if (producao.equals("&")) {
-//                                pegaFinal.add(linha.substring(0, 1));
-//                            }
-//                            if (verificaFinal.contains(producao) && verificaFinal.length() > 1) {
-//                                pegaFinal.add(verificaFinal.substring(1));
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//        return pegaFinal;
-//    }
-//
-//    private String[][] getTabelaMatriz() {
-//        List<String> terminais = new ArrayList<>(this.terminais);
-//        List<String> nTerminais = new ArrayList<>(this.naoterminais);
-//        List<String> linhas = getLinhas();
-//
-//        String[][] matriz = new String[nTerminais.size()][terminais.size() + 1];
-//        for (int i = 0; i < nTerminais.size(); i++) {
-//            matriz[i][0] = verificaEstado(nTerminais.get(i));
-//            for (int j = 1; j < terminais.size() + 1; j++) {
-//                for (String producao : getProducoes(linhas.get(i))) {
-////                    if (producao.length() > 1 && producao.contains(terminais.get(j - 1))) {
-////                        if (matriz[i][j] == null) {
-////                            matriz[i][j] = "";
-////                        }
-////                        if (matriz[i][j].length() > 0) {
-////                            matriz[i][j] += ",";
-////                        }
-////                        matriz[i][j] += producao.substring(1);
-////                    }
-//                }
-//            }
-//        }
-//        return matriz;
-//    }
+    String[][] MatrixApresentacao() {
+        List<String> terminais = new ArrayList<>(Terminais());
+        List<String> nTerminais = new ArrayList<>(NaoTerminais());
+        List<String> linhas = LinhaProducao();
+
+        String[][] matriz = new String[nTerminais.size()][terminais.size() + 1];
+
+        for (int i = 0; i < nTerminais.size(); i++) {
+            for (int j = 1; j < terminais.size() + 1; j++) {
+                for (String producao : Producoes(linhas.get(i))) {
+                    if (producao.length() > 1 && producao.contains(terminais.get(j - 1))) {
+                        if (matriz[i][j] == null) {
+                            matriz[i][j] = "";
+                        }
+                        if (matriz[i][j].length() > 0) {
+                            matriz[i][j] += ",";
+                        }
+                        matriz[i][j] += producao.substring(1);
+                    }
+                }
+            }
+        }
+        return matriz;
+    }
+    public List<String> LinhaProducao() {
+        return Arrays.asList(this.pp.split("\n"));
+    }
+
+    public List<String> Producoes(String linha) {
+        return Arrays.asList(linha.substring(2).split("[|]"));
+    }
+
 }
