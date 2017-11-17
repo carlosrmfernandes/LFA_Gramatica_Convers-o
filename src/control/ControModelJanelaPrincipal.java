@@ -76,6 +76,14 @@ public class ControModelJanelaPrincipal implements ActionListener {
                 ValidacaoGramtica vd = new ValidacaoGramtica();
                 vd.validacao(NT, TN, SI, PD_aux, jtfProducao);
 
+                GramaticaMatrix x = new GramaticaMatrix();
+                List<String> terminais = new ArrayList<>();
+                terminais.addAll(x.Terminais());
+                terminais.add(0, "");
+
+                DefaultTableModel mod = new DefaultTableModel(x.MatrixApresentacao(), terminais.toArray(new String[terminais.size()]));
+                janelaprincipal.jTable1.setModel(mod);
+
             } else {
                 JOptionPane.showMessageDialog(null, "Erro de Sinatxe"
                         + "\nExemplo : "
@@ -86,14 +94,9 @@ public class ControModelJanelaPrincipal implements ActionListener {
                         + "\n A = a|bB"
                         + "\n B = b|d"
                         + "\n C = bB|&");
-            }
-            GramaticaMatrix x = new GramaticaMatrix();
-            List<String> terminais = new ArrayList<>();
-            terminais.addAll(x.Terminais());
-            terminais.add(0, "");
 
-            DefaultTableModel mod = new DefaultTableModel(x.MatrixApresentacao(), terminais.toArray(new String[terminais.size()]));
-            janelaprincipal.jTable1.setModel(mod);
+            }
+
         }
 
     }
