@@ -22,11 +22,13 @@ public class GramaticaMatrix {
 
     HashSet naoterminais = new HashSet();
     HashSet terminais = new HashSet();
-    String pp = "A=aA|aC|bB";
+    String pp = "J=aA\n"
+            + "A=bJ|aB\n"
+            + "B=aA|&\n";
     String inn = null;
     private JanelaPrincipal janelaprincipal;
+    String estado = "";
 
-   
     public Set<String> Terminais() {
         return LinhaProducao()
                 .stream()
@@ -60,19 +62,14 @@ public class GramaticaMatrix {
 
         }
 
-//        List<String> terminais = new ArrayList<>(matrix.getTerminais());
-//        List<String> nTerminais = new ArrayList<>(matrix.getNaoTerminais());
-//        List<String> linhas = matrix.getLinhas();
-//        DefaultTableModel mod = new DefaultTableModel(MatrixApresentacao(), terminais.toArray(new String[terminais.size()]));
-//        List<String> terminais = new ArrayList<>();
-//        terminais.addAll(getTerminais());
-//
-//        DefaultTableModel mod = new DefaultTableModel(MatrixApresentacao(), terminais.toArray(new String[terminais.size()]));
-//        modeljanelaprincipal = janelaprincipal.modelojanelaprincipal();
-//        jp.jtfsiboloIncial.setText("hsdhgjdsgh");
-//        jp.jTable1.setModel(mod);
+    }
 
-    MatrixApresentacao();
+    public List<String> LinhaProducao() {
+        return Arrays.asList(this.pp.split("\n"));
+    }
+
+    public List<String> Producoes(String linha) {
+        return Arrays.asList(linha.substring(2).split("[|]"));
     }
 
     String[][] MatrixApresentacao() {
@@ -83,6 +80,7 @@ public class GramaticaMatrix {
         String[][] matriz = new String[nTerminais.size()][terminais.size() + 1];
 
         for (int i = 0; i < nTerminais.size(); i++) {
+            matriz[i][0] = verificaEstado(nTerminais.get(i));
             for (int j = 1; j < terminais.size() + 1; j++) {
                 for (String producao : Producoes(linhas.get(i))) {
                     if (producao.length() > 1 && producao.contains(terminais.get(j - 1))) {
@@ -99,12 +97,15 @@ public class GramaticaMatrix {
         }
         return matriz;
     }
-    public List<String> LinhaProducao() {
-        return Arrays.asList(this.pp.split("\n"));
-    }
 
-    public List<String> Producoes(String linha) {
-        return Arrays.asList(linha.substring(2).split("[|]"));
+    private String verificaEstado(String nTerminal) {
+        NaoTeFinais nt = new NaoTeFinais();
+
+        if (nt.getFinais().contains(nTerminal)) {
+            estado += "#";
+        }
+
+        return estado + nTerminal;
     }
 
 }
