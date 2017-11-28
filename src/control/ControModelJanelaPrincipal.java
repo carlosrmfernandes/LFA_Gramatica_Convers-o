@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.ModelJanelaPrincipal;
+import model.modelreconhecer;
 import visao.JanelaPrincipal;
 
 /**
@@ -27,6 +28,7 @@ public class ControModelJanelaPrincipal implements ActionListener {
     private ModelJanelaPrincipal modeljanelaprincipal;
     private JanelaPrincipal janelaprincipal;
     private String jtfProducao, jtfnaoterminais, jtfsiboloIncial, jtfterminais;
+    private String senteca;
 
     public ControModelJanelaPrincipal(JanelaPrincipal janelaprincipal) {
         this.janelaprincipal = janelaprincipal;
@@ -51,7 +53,7 @@ public class ControModelJanelaPrincipal implements ActionListener {
             String producoes = "([A-Z]=?)|"
                     + "([A-Z]=[a-z][A-Z]?)|"
                     + "([A-Z]=([a-z][A-Z]?[|])*)|"
-                    + "(([A-Z]=([a-z][A-Z]?[|])*([&]|([a-z][A-Z]?)))\n?)*";
+                    + "(([A-Z]=([a-z][A-Z]?[|])*([$]|([a-z][A-Z]?)))\n?)*";
 
             String Terminais = "([a-z])|"
                     + "([a-z],)|"
@@ -81,6 +83,8 @@ public class ControModelJanelaPrincipal implements ActionListener {
                 terminais.addAll(x.Terminais());
                 terminais.add(0, "");
 
+                // System.out.println(jtfsiboloIncial);
+                //System.out.println(x.MatrixApresentacao().toString());
                 DefaultTableModel mod = new DefaultTableModel(x.MatrixApresentacao(), terminais.toArray(new String[terminais.size()]));
                 janelaprincipal.jTable1.setModel(mod);
 
@@ -93,12 +97,35 @@ public class ControModelJanelaPrincipal implements ActionListener {
                         + "\n S = aA"
                         + "\n A = a|bB"
                         + "\n B = b|d"
-                        + "\n C = bB|&");
+                        + "\n C = bB|$");
 
             }
 
         }
+        if ("reconhecer".equals(e.getActionCommand())) {
 
+            try {
+                modeljanelaprincipal = janelaprincipal.modelojanelaprincipal1();
+            } catch (Excecao ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+                return;
+            }
+            senteca = modeljanelaprincipal.getSenteca();
+            Reconhecer();
+
+        }
+
+    }
+
+    void Reconhecer() {
+        NaoTeFinais fim = new NaoTeFinais();
+        String Inicial = jtfsiboloIncial;
+        String ConFinal = fim.getFinais().toString();
+        String Caracter = senteca;
+
+        System.out.println(Inicial);
+        System.out.println(ConFinal);
+        System.out.println(senteca);
     }
 
 }

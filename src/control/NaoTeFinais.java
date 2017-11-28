@@ -31,7 +31,7 @@ public class NaoTeFinais {
                 if (producao.length() < 2) {
                     if (linha.contains(producao)) {
                         for (String verificaFinal : producoes) {
-                            if (producao.equals("&")) {
+                            if (producao.equals("$")) {
                                 pegaFinal.add(linha.substring(0, 1));
                             }
                             if (verificaFinal.contains(producao) && verificaFinal.length() > 1) {

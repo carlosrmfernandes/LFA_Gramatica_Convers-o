@@ -9,6 +9,7 @@ package visao;
 import control.ControModelJanelaPrincipal;
 import exception.Excecao;
 import model.ModelJanelaPrincipal;
+import model.modelreconhecer;
 
 /**
  *
@@ -37,11 +38,26 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         }
 
         ModelJanelaPrincipal modeljanelaprinc = new ModelJanelaPrincipal();
+
         modeljanelaprinc.setJtfnaoterminais(jtfnaoterminais.getText());
         modeljanelaprinc.setJtfterminais(jtfterminais.getText());
         modeljanelaprinc.setJtfsiboloIncial(jtfsiboloIncial.getText());
         modeljanelaprinc.setJtfProducao(jtfProducao.getText());
+
         return modeljanelaprinc;
+    }
+
+    public ModelJanelaPrincipal modelojanelaprincipal1() throws Excecao {
+
+        if ("".equals(jtfreconhcer.getText())) {
+            throw new Excecao("Digite uma Sentença");
+        }
+
+        ModelJanelaPrincipal modeljanelaprinc1 = new ModelJanelaPrincipal();
+
+        modeljanelaprinc1.setSenteca(jtfreconhcer.getText());
+
+        return modeljanelaprinc1;
     }
 
     public JanelaPrincipal() {
@@ -122,6 +138,13 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable1);
 
         jbtreconhecer.setText("Reconhecer");
+        jbtreconhecer.addActionListener(l);
+        jbtreconhecer.setActionCommand("reconhecer");
+        jbtreconhecer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtreconhecerActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("Arquivo");
 
@@ -234,6 +257,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private void jbtgeraautomatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtgeraautomatoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jbtgeraautomatoActionPerformed
+
+    private void jbtreconhecerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtreconhecerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbtreconhecerActionPerformed
 
     /**
      * @param args the command line arguments

@@ -245,6 +245,12 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Reconhecer"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtreconhecerActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jbtreconhecer.addActionListener(l);&#xa;jbtreconhecer.setActionCommand(&quot;reconhecer&quot;);"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

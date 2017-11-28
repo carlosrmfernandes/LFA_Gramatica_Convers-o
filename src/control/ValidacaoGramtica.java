@@ -5,7 +5,6 @@
  */
 package control;
 
-
 import java.util.HashSet;
 import javax.swing.JOptionPane;
 
@@ -73,7 +72,7 @@ public class ValidacaoGramtica {
     public void Validar_Preposicao() {
         String i = in.toLowerCase();
         String pd = prod;
-        String vasio = "&";
+        String vasio = "$";
         String con = Termi.concat(naotermi).concat(vasio);
         pd = pd.replace("\n", "");
 
@@ -89,7 +88,7 @@ public class ValidacaoGramtica {
 
         if (hs.containsAll(hss)) {
             GramaticaMatrix gm = new GramaticaMatrix();
-            gm.gamaticamatri(prod, naotermi, Termi, in,p);
+            gm.gamaticamatri(prod, naotermi, Termi, in, p);
         } else {
             JOptionPane.showMessageDialog(null, "Erro na entrada das Produçoes voce digitou "
                     + "\nUm caracter que nao existe nos não terminais"

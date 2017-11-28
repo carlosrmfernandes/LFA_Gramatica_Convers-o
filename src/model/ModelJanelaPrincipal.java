@@ -44,5 +44,14 @@ public class ModelJanelaPrincipal {
     public void setJtfterminais(String jtfterminais) {
         this.jtfterminais = jtfterminais;
     }
+     String senteca;
+
+    public String getSenteca() {
+        return senteca;
+    }
+
+    public void setSenteca(String senteca) {
+        this.senteca = senteca;
+    }
 
 }

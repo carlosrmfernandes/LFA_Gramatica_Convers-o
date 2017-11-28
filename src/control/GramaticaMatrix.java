@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import javax.swing.table.DefaultTableModel;
+
 import visao.JanelaPrincipal;
 
 /**
@@ -22,10 +22,9 @@ public class GramaticaMatrix {
 
     HashSet naoterminais = new HashSet();
     HashSet terminais = new HashSet();
-    String pp = "J=aA\n"
-            + "A=bJ|aB\n"
-            + "B=aA|&\n";
     String inn = null;
+    static String pp = "";
+
     private JanelaPrincipal janelaprincipal;
     String estado = "";
 
@@ -34,7 +33,7 @@ public class GramaticaMatrix {
                 .stream()
                 .map(s -> Producoes(s))
                 .flatMap(List::stream)
-                .filter(s -> !s.equalsIgnoreCase("&"))
+                .filter(s -> !s.equalsIgnoreCase("$"))
                 .map(s -> s.substring(0, 1))
                 .collect(Collectors.toSet());
     }
@@ -46,22 +45,21 @@ public class GramaticaMatrix {
                 .collect(Collectors.toSet());//passa cada carácter para um set
     }
 
-    void gamaticamatri(String prod, String naotermi, String Termi, String in, String p) {
-
+    boolean gamaticamatri(String prod, String naotermi, String Termi, String in, String p) {
         pp = p;
         inn = in;
         for (int j = 0; j < prod.length(); j++) {
 
             if (prod.charAt(j) == 'a' || prod.charAt(j) == 'b' || prod.charAt(j) == 'c' || prod.charAt(j) == 'd' || prod.charAt(j) == 'e' || prod.charAt(j) == 'f' || prod.charAt(j) == 'g' || prod.charAt(j) == 'h' || prod.charAt(j) == 'i' || prod.charAt(j) == 'j' || prod.charAt(j) == 'k' || prod.charAt(j) == 'l' || prod.charAt(j) == 'm' || prod.charAt(j) == 'n' || prod.charAt(j) == 'o' || prod.charAt(j) == 'p' || prod.charAt(j) == 'q' || prod.charAt(j) == 'r' || prod.charAt(j) == 's' || prod.charAt(j) == 't' || prod.charAt(j) == 'u' || prod.charAt(j) == 'v' || prod.charAt(j) == 'x' || prod.charAt(j) == 'y' || prod.charAt(j) == 'w' || prod.charAt(j) == 'z') {
                 terminais.add(prod.charAt(j));
-            } else if (prod.charAt(j) == '&') {
+            } else if (prod.charAt(j) == '$') {
 
             } else {
                 naoterminais.add(prod.charAt(j));
             }
 
         }
-
+        return false;
     }
 
     public List<String> LinhaProducao() {
@@ -73,6 +71,7 @@ public class GramaticaMatrix {
     }
 
     String[][] MatrixApresentacao() {
+
         List<String> terminais = new ArrayList<>(Terminais());
         List<String> nTerminais = new ArrayList<>(NaoTerminais());
         List<String> linhas = LinhaProducao();
