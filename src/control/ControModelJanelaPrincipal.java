@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -123,20 +124,22 @@ public class ControModelJanelaPrincipal implements ActionListener {
         GramaticaMatrix x = new GramaticaMatrix();
 
         String Inicial = jtfsiboloIncial;
-        String ConFinal = fim.getFinais().toString();
+        String ConFinal = fim.Finais().toString();
         String Caracter = senteca;
 
         for (int i = 0; i < Caracter.length(); i++) {
-            if (Inicial == "") {
-                return false;
-            }
+//            if (Inicial == "") {
+//                return false;
+//            }
             Inicial = x.getTransition(Caracter.substring(i, i + 1), Inicial);
 
         }
 
         NaoTeFinais f = new NaoTeFinais();
         
-        return f.getFinais().contains(Inicial);
+        return f.Finais().contains(Inicial);
+        //verificando o ponto 
+               
 
     }
 

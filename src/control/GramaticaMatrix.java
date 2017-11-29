@@ -29,20 +29,15 @@ public class GramaticaMatrix {
     String estado = "";
 
     public Set<String> Terminais() {
-        return LinhaProducao()
-                .stream()
-                .map(s -> Producoes(s))
-                .flatMap(List::stream)
-                .filter(s -> !s.equalsIgnoreCase("$"))
-                .map(s -> s.substring(0, 1))
-                .collect(Collectors.toSet());
+        return LinhaProducao().stream().map(s -> Producoes(s)).flatMap(List::stream).filter(s -> !s.equalsIgnoreCase("$")).map(s -> s.substring(0, 1)).collect(Collectors.toSet());
     }
+//     LinhaProducao()//recebe as linhas
+//    .stream()//pega uma linha por vez
+//    .map(linha -> linha.substring(0, 1))//pega o primeiro carácter de cada linha
+//    .collect(Collectors.toSet());//passa cada carácter para um set
 
     public Set<String> NaoTerminais() {
-        return LinhaProducao()//recebe as linhas
-                .stream()//pega uma linha por vez
-                .map(linha -> linha.substring(0, 1))//pega o primeiro carácter de cada linha
-                .collect(Collectors.toSet());//passa cada carácter para um set
+        return LinhaProducao().stream().map(linha -> linha.substring(0, 1)).collect(Collectors.toSet());
     }
 
     boolean gamaticamatri(String prod, String naotermi, String Termi, String in, String p) {
@@ -68,6 +63,7 @@ public class GramaticaMatrix {
 
     public List<String> Producoes(String linha) {
         return Arrays.asList(linha.substring(2).split("[|]"));
+        //split quebra uma String em várias substrings
     }
 
     String[][] MatrixApresentacao() {
@@ -87,24 +83,29 @@ public class GramaticaMatrix {
                             matriz[i][j] = "";
                         }
                         if (matriz[i][j].length() > 0) {
-                            matriz[i][j] += ",";
+                            matriz[i][j] += ";";
                         }
                         matriz[i][j] += producao.substring(1);
                     }
                 }
             }
         }
-        
+
         return matriz;
-        
+
     }
 
     public String getTransition(String terminal, String naoterminal) {
 
+        
         List<String> terminais = new ArrayList<>(Terminais());
         List<String> nTerminais = new ArrayList<>(NaoTerminais());
         List<String> linhas = LinhaProducao();
-        String tran = "";
+        
+//        System.out.println(terminais);
+//         System.out.println(nTerminais);
+       
+         String tran = "";
         for (int i = 0; i < nTerminais.size(); i++) {
             if (nTerminais.get(i) == naoterminal) {
                 for (int j = 0; j < terminais.size(); j++) {
@@ -120,7 +121,7 @@ public class GramaticaMatrix {
     private String verificaEstado(String nTerminal) {
         NaoTeFinais nt = new NaoTeFinais();
 
-        if (nt.getFinais().contains(nTerminal)) {
+        if (nt.Finais().contains(nTerminal)) {
             estado += "#";
         }
 

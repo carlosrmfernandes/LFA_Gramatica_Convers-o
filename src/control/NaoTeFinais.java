@@ -19,30 +19,30 @@ public class NaoTeFinais {
 
     GramaticaMatrix x = new GramaticaMatrix();
 
-    public Set<String> getFinais() {
-        HashSet<String> pegaFinal = new HashSet<>();
+    public Set<String> Finais() {
+        HashSet<String> finalret = new HashSet<>();
 
-        for (String linha : x.LinhaProducao()) {
-            //Converte a linha em char
+        for (String linha : x.LinhaProducao()) { // tranforma em char
+
             List<String> producoes = x.Producoes(linha);
-            //for criado para fazer toda a operacao com a linha
-            for (String producao : producoes) {
-                //Checa se a letra na posicao j e minuscula E checa se na posicao j+1 e maiuscula
+
+            for (String producao : producoes) { //ver se a primeira e a segunda letras sao maiucula
+
                 if (producao.length() < 2) {
                     if (linha.contains(producao)) {
                         for (String verificaFinal : producoes) {
                             if (producao.equals("$")) {
-                                pegaFinal.add(linha.substring(0, 1));
+                                finalret.add(linha.substring(0, 1));
                             }
                             if (verificaFinal.contains(producao) && verificaFinal.length() > 1) {
-                                pegaFinal.add(verificaFinal.substring(1));
+                                finalret.add(verificaFinal.substring(1));
                             }
                         }
                     }
                 }
             }
         }
-        return pegaFinal;
+        return finalret;
     }
 
 }
