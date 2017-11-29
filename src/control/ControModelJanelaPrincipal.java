@@ -111,21 +111,35 @@ public class ControModelJanelaPrincipal implements ActionListener {
                 return;
             }
             senteca = modeljanelaprincipal.getSenteca();
-            Reconhecer();
+
+            System.out.println(Reconhecer());
 
         }
 
     }
 
-    void Reconhecer() {
+    boolean Reconhecer() {
         NaoTeFinais fim = new NaoTeFinais();
+        GramaticaMatrix x = new GramaticaMatrix();
+
         String Inicial = jtfsiboloIncial;
         String ConFinal = fim.getFinais().toString();
         String Caracter = senteca;
 
-        System.out.println(Inicial);
-        System.out.println(ConFinal);
-        System.out.println(senteca);
+        for (int i = 0; i < Caracter.length(); i++) {
+            if (Inicial == "") {
+                return false;
+            }
+            Inicial = x.getTransition(Caracter.substring(i, i + 1), Inicial);
+
+        }
+
+        NaoTeFinais f = new NaoTeFinais();
+        
+        return f.getFinais().contains(Inicial);
+
     }
+
+    
 
 }

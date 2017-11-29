@@ -94,8 +94,7 @@ public class ValidacaoGramtica {
                     + "\nUm caracter que nao existe nos não terminais"
                     + "\nOu nos terminais, reve a entrada");
             return;
+
         }
-
     }
-
 }

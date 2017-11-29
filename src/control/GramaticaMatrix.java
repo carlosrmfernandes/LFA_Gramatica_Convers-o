@@ -94,7 +94,27 @@ public class GramaticaMatrix {
                 }
             }
         }
+        
         return matriz;
+        
+    }
+
+    public String getTransition(String terminal, String naoterminal) {
+
+        List<String> terminais = new ArrayList<>(Terminais());
+        List<String> nTerminais = new ArrayList<>(NaoTerminais());
+        List<String> linhas = LinhaProducao();
+        String tran = "";
+        for (int i = 0; i < nTerminais.size(); i++) {
+            if (nTerminais.get(i) == naoterminal) {
+                for (int j = 0; j < terminais.size(); j++) {
+                    if (terminais.get(j) == terminal) {
+                        return MatrixApresentacao()[i][j];
+                    }
+                }
+            }
+        }
+        return tran;
     }
 
     private String verificaEstado(String nTerminal) {
